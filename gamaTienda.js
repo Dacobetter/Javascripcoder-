@@ -4,7 +4,7 @@ let confirmacion = prompt('¿Desea ver nuestros productos? (s-si / n-no)');
 let eleccion = 0;
 
 let graficas = ["AMD", "NVIDIA"]
-let cpus = ["Intel", "AMD"]
+let cpus = ["INTEL", "AMD"]
 let monitores = ["LG", "SAMSUNG", "ASUS"]
 
 function calculo(eleccion){
@@ -27,18 +27,18 @@ while(confirmacion == 's' || confirmacion == 'S'){
         
     }else if(producto == 'b' || producto == 'B'){
         let confirmacionGrafica = prompt('Elija un Grafica: \nAMD \nNVIDIA ').toUpperCase();
-        if(monitores.indexOf(confirmacionGrafica) !== -1 ){
+        if(graficas.indexOf(confirmacionGrafica) !== -1 ){
             alert('Grafica' + " " + confirmacionGrafica + ' de 400 USD + IVA agregada');
-            monitores.splice(monitores.indexOf(confirmacionGrafica), 1);
+            graficas.splice(graficas.indexOf(confirmacionGrafica), 1);
             eleccion = eleccion + 400;
         }else{
             alert("no hay en stock")
         }
     }else if(producto == 'c' || producto == 'C'){
-        let confirmacionCpu = prompt('Elija un un procesador: \nAMD \INTEL ').toUpperCase();
-        if(monitores.indexOf(confirmacionCpu) !== -1 ){
+        let confirmacionCpu = prompt('Elija un un procesador: \nAMD \nINTEL ').toUpperCase();
+        if(cpus.indexOf(confirmacionCpu) !== -1 ){
             alert('Cpu' + " " + confirmacionCpu + ' de 250 USD + IVA agregado');
-            monitores.splice(monitores.indexOf(confirmacionCpu), 1);
+            cpus.splice(cpus.indexOf(confirmacionCpu), 1);
             eleccion = eleccion + 250;
         }else{
             alert("no hay en stock")
