@@ -1,0 +1,48 @@
+header {
+    background-color: #8d2ce9;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 50px;
+    z-index: 1;
+    box-shadow: 1px 10px 5px 0px rgba(0, 0, 0, 0.11);
+    -webkit-box-shadow: 1px 10px 5px 0px rgba(0, 0, 0, 0.11);
+    -moz-box-shadow: 1px 10px 5px 0px rgba(0, 0, 0, 0.11); }
+    header a {
+      text-decoration: none; }
+    header h1 {
+      font-size: 50px;
+      font-weight: 700;
+      color: black;
+      margin: 5px; }
+    header nav ul {
+      list-style: none;
+      display: flex;
+      font-weight: 700;
+      padding-top: 10px; }
+      header nav ul li {
+        margin: 10px 15px 15px 10px;
+        font-size: 18px; }
+        header nav ul li a {
+          text-decoration: none;
+          color: #270825; }
+          header nav ul li a:hover {
+            color: antiquewhite;
+            transition: 0.3s; }
+.ProductosVenta {
+  height: 500px;
+}
+
+.pie {
+  bottom: 0;
+  margin-top: 200px;
+  width: 100%;
+  display: flex;
+  background-color: #333;
+  color: #fff;
+  padding: 2px 0;
+  justify-content: space-around;
+  align-items: center; }
