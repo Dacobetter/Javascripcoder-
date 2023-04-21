@@ -57,6 +57,17 @@ alert('Gracias por su compra, ' + nombre + '!');/** */
 let carrito = [];
 let contenedor = document.getElementById("misprods");
 
+function cargarCarritoDesdeStorage() {
+    const carritoStorage = localStorage.getItem('carrito');
+    if (carritoStorage) {
+        carrito = JSON.parse(carritoStorage);
+        renderizarProductos();
+        for (const producto of carrito) {
+            agregarACarrito(producto);
+        }
+    }
+}
+
 function renderizarProductos(){
     for(const producto of productos){
         contenedor.innerHTML += `
@@ -77,20 +88,43 @@ function renderizarProductos(){
 });
 }
 
-renderizarProductos();
+
+
+function eliminarDelCarrito(prodAEliminar){
+    let index = carrito.indexOf(prodAEliminar);
+    carrito.splice(index, 1);
+    let fila = document.getElementById(`borrar${prodAEliminar.id}`).parentElement.parentElement;
+    fila.parentNode.removeChild(fila);
+    let totalCarrito = carrito.reduce((acumulador,producto)=>acumulador+producto.precio,0);
+    document.getElementById('total').innerText = 'Total a pagar $: '+totalCarrito;
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
 
 function agregarACarrito(prodAAgregar){
     carrito.push(prodAAgregar);
-    document.getElementById('tablabody').innerHTML += `
-        <tr>
-            <td>${prodAAgregar.id}</td>
-            <td>${prodAAgregar.nombre}</td>
-            <td>${prodAAgregar.precio}</td>
-        </tr>
+    let fila = document.createElement('tr');
+    fila.innerHTML = `
+        <td><img src="${prodAAgregar.foto}" alt=""></td>
+        <td>${prodAAgregar.nombre}</td>
+        <td>$ ${prodAAgregar.precio}</td>
+        <td><button id="borrar${prodAAgregar.id}" class="btn btn-danger">X</button></td>
     `;
-    //agregar fila a la tabla de carrito
+    document.getElementById('tablabody').appendChild(fila);
+    
+    let btnBorrar = document.getElementById(`borrar${prodAAgregar.id}`);
+    btnBorrar.addEventListener('click', ()=>{
+        eliminarDelCarrito(prodAAgregar);
+    });
     
     let totalCarrito = carrito.reduce((acumulador,producto)=>acumulador+producto.precio,0);
     document.getElementById('total').innerText = 'Total a pagar $: '+totalCarrito;
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
 }
+
+
+
+cargarCarritoDesdeStorage();
 
