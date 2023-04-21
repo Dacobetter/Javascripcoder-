@@ -1,6 +1,6 @@
 
-let nombre = prompt('ingrese su nombre');
-let confirmacion = prompt('¿Desea ver nuestros productos? (s-si / n-no)');
+/**let nombre = console.log('ingrese su nombre');
+let confirmacion = console.log('¿Desea ver nuestros productos? (s-si / n-no)');
 let eleccion = 0;
 
 let graficas = ["AMD", "NVIDIA"]
@@ -18,7 +18,7 @@ while(confirmacion == 's' || confirmacion == 'S'){
 
         let confirmacionMonitor = prompt('Elija un monitor: \nLG \nSAMSUNG \nASUS').toUpperCase();
         if(monitores.indexOf(confirmacionMonitor) !== -1 ){
-            alert('Monitor' + " " + confirmacionMonitor + ' de 300 USD + IVA agregado');
+            console.log('Monitor' + " " + confirmacionMonitor + ' de 300 USD + IVA agregado');
             monitores.splice(monitores.indexOf(confirmacionMonitor), 1);
             eleccion = eleccion + 200;
         }else{
@@ -28,7 +28,7 @@ while(confirmacion == 's' || confirmacion == 'S'){
     }else if(producto == 'b' || producto == 'B'){
         let confirmacionGrafica = prompt('Elija un Grafica: \nAMD \nNVIDIA ').toUpperCase();
         if(graficas.indexOf(confirmacionGrafica) !== -1 ){
-            alert('Grafica' + " " + confirmacionGrafica + ' de 400 USD + IVA agregada');
+            console.log('Grafica' + " " + confirmacionGrafica + ' de 400 USD + IVA agregada');
             graficas.splice(graficas.indexOf(confirmacionGrafica), 1);
             eleccion = eleccion + 400;
         }else{
@@ -50,24 +50,47 @@ while(confirmacion == 's' || confirmacion == 'S'){
 }
 
 alert('El precio total con IVA es: ' + '' + calculo(eleccion));
-alert('Gracias por su compra, ' + nombre + '!');
+alert('Gracias por su compra, ' + nombre + '!');/** */
 
 
-const productosMuestra = [
-    {
-        foto: "../img/gpu3.png",
-        nombre: "Grafica AMD",
-        precio: 400
-    },
-    {
-        foto: "../img/monitor1.jpeg",
-        nombre: "Monitor",
-        precio: 200
-    },
-    {
-        foto: "../img/intel.jpg",
-        nombre: "Procesador intel",
-        precio: 250
+
+let carrito = [];
+let contenedor = document.getElementById("misprods");
+
+function renderizarProductos(){
+    for(const producto of productos){
+        contenedor.innerHTML += `
+            <div class="card col-sm-2">
+                <img src=${producto.foto} class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${producto.nombre}</h5>
+                    <p class="card-text">$ ${producto.precio}</p>
+                    <button id='btn${producto.id}' class="btn btn-primary align-bottom">Comprar</button>
+                </div>
+            </div>   
+        `;
     }
-]
-console.table(productosMuestra);
+    productos.forEach((producto)=>{
+        document.getElementById(`btn${producto.id}`).addEventListener('click',()=>{
+            agregarACarrito(producto);
+    });
+});
+}
+
+renderizarProductos();
+
+function agregarACarrito(prodAAgregar){
+    carrito.push(prodAAgregar);
+    document.getElementById('tablabody').innerHTML += `
+        <tr>
+            <td>${prodAAgregar.id}</td>
+            <td>${prodAAgregar.nombre}</td>
+            <td>${prodAAgregar.precio}</td>
+        </tr>
+    `;
+    //agregar fila a la tabla de carrito
+    
+    let totalCarrito = carrito.reduce((acumulador,producto)=>acumulador+producto.precio,0);
+    document.getElementById('total').innerText = 'Total a pagar $: '+totalCarrito;
+}
+
