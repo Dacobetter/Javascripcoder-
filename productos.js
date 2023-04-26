@@ -1,4 +1,4 @@
-const productos = [{   
+let productos = [{   
         id: 1,
         foto: "./img/gpu3.png",
         nombre: "Grafica AMD",

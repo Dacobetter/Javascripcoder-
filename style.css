@@ -66,6 +66,10 @@ header {
     background-color: #a318a3;
     border: solid 2px #a318a3; }
 
+    #carrito-container {
+      height: 400px; 
+      overflow-y: scroll; 
+    }
 .pie {
   bottom: 0;
   margin-top: 200px;
