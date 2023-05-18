@@ -5,7 +5,7 @@ let contenedor = document.getElementById("misprods");
 function renderizarProductos() {
     for (const producto of productos) {
         contenedor.innerHTML += `
-            <div class="card col-sm-2">
+            <div id="carta" class="card col-sm-2">
                 <img src=${producto.foto} class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${producto.nombre}</h5>
@@ -21,8 +21,6 @@ function renderizarProductos() {
         });
     });
 }
-
-
 
 function eliminarDelCarrito(prodAEliminar) {
     let index = carrito.indexOf(prodAEliminar);
@@ -78,7 +76,29 @@ function renderizarCarrito() {
     let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + producto.precio, 0);
     document.getElementById('total').innerText = 'Total a pagar $: ' + totalCarrito;
 }
+fetch('https://randomuser.me/api/')
+.then(response => response.json())
+.then(data => {
+    const usuarioName = data.results[0].name.first
+    document.getElementById('usuario').innerHTML +=`
+    <p> Bienvenido ${usuarioName} `
+    console.log(data.results[0].name.first)});
 
 
-renderizarProductos()
+botonFinalizar.onclick=()=>{
+    carrito=[];
+    document.getElementById('tablabody').innerHTML='';
+    document.getElementById('total').innerText='Total a pgar:';
+    Toastify({
+        text:"Gracias por tu compra",
+        duration: 3000,
+        gravity: 'center',
+        position: 'center',
+        style: {
+            background: 'linear-gradient(to right, #00b09b, #96c92d'
+        }
+    }).showToast();
+    localStorage.removeItem("carrito");
+}
+renderizarProductos();
 renderizarCarrito();
